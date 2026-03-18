@@ -1,13 +1,15 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
+import { connectDB } from './lib/db.js';
 
 //Routers import
 import authRoutes from './routes/auth.route.js';
 import messageRoutes from './routes/message.route.js';
 
 //dotenv config
-dotenv.config();
+dotenv.config({ path: path.resolve(process.cwd(), 'src/.env') });
+console.log("MONGO_URI:", process.env.MONGO_URI);
 const PORT = process.env.PORT || 5001; //port config
 
 // part and app declaration
@@ -31,4 +33,5 @@ if (process.env.NODE_ENV === 'production') {
 //Port access confirmation.
 app.listen(PORT, () => {
     console.log('server is running on port' + PORT);
+    connectDB();
 })
