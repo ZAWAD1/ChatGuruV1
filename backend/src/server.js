@@ -12,9 +12,12 @@ dotenv.config({ path: path.resolve(process.cwd(), 'src/.env') });
 console.log("MONGO_URI:", process.env.MONGO_URI);
 const PORT = process.env.PORT || 5001; //port config
 
+
 // part and app declaration
 const app = express();
 const __dirname = path.resolve();
+// user body parsing. 
+app.use(express.json());
 
 // routings.
 app.use('/api/auth', authRoutes);
