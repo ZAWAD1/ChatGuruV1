@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import { generateToken } from "../lib/utils.js";
 import { sendWelcomeEmail } from "../emails/emailHandlers.js";
 import { ENV } from "../lib/env.js";
+import cloudinary from "../lib/cloudinary.js";
 
 //User signup controller.
 export const signup = async (req, res) => {
@@ -76,9 +77,8 @@ export const login = async (req, res) => {
     const { email, password } = req.body
 
     //Empty fields flag
-    if( !email || !password)
-    {
-        return res.status(400).json({message: "Email and Password are required"});
+    if (!email || !password) {
+        return res.status(400).json({ message: "Email and Password are required" });
     }
 
     try {
@@ -113,4 +113,23 @@ export const login = async (req, res) => {
 export const logout = (_, res) => {
     res.cookie("jwt", "", { maxAge: 0 })
     res.status(200).json({ message: "Logout successfully" })
+}
+
+//Update profile
+export const updateProfile = async (_, res) => {
+
+    try {
+        const { profilePic } = req.body
+
+        if (!profilePic) return res.status(400).json({ message: "Profile picture is required" });
+
+        const userId = req.user._id;
+        await cloudinary.uploader.upload(profilePic)
+        await User.findByIdAndUpdate(userId, { profilePic: uploadResponse.secure_url }, { new: true })
+
+        res.status(200).json(updatedUser)
+    } catch (error) {
+        console.error("Error in updateProfile controller: ", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
 }

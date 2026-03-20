@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import { connectDB } from './lib/db.js';
 import { ENV } from './lib/env.js';
+import cookieParser from 'cookie-parser';
 
 //Routers import
 import authRoutes from './routes/auth.route.js';
@@ -21,6 +22,7 @@ app.use(express.json());
 // routings.
 app.use('/api/auth', authRoutes);
 app.use('/api/message', messageRoutes);
+app.use(cookieParser());
 
 
 // Ready for deployment.
