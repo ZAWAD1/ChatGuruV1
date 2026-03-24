@@ -15,14 +15,16 @@ const PORT = ENV.PORT || 5001; //port config
 // part and app declaration
 const app = express();
 const __dirname = path.resolve();
+
 // user body parsing. 
 app.use(express.json());
+//cookie parsing.
+app.use(cookieParser());
 
 
 // routings.
 app.use('/api/auth', authRoutes);
 app.use('/api/message', messageRoutes);
-app.use(cookieParser());
 
 
 // Ready for deployment.
