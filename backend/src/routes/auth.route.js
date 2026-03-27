@@ -14,7 +14,7 @@ const router = express.Router();
 // });
 
 // Arcjet protection 
-router.use(arcjetProtection);
+//router.use(arcjetProtection);
 
 //routers
 router.post('/signup', signup); //signup
