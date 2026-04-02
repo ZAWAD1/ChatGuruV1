@@ -3,6 +3,7 @@ import path from 'path';
 import { connectDB } from './lib/db.js';
 import { ENV } from './lib/env.js';
 import cookieParser from 'cookie-parser';
+import cors from "cors";
 
 //Routers import
 import authRoutes from './routes/auth.route.js';
@@ -16,10 +17,12 @@ const PORT = ENV.PORT || 5001; //port config
 const app = express();
 const __dirname = path.resolve();
 
-//cookie parsing.
-app.use(cookieParser());
 // user body parsing. 
 app.use(express.json());
+//cors 
+app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
+//cookie parsing.
+app.use(cookieParser());
 
 
 // routings.
