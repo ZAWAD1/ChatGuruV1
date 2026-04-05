@@ -10,12 +10,12 @@ export const useChatStore = create((set, get) => ({
     selectedUser: null,
     isUsersLoading: false,
     isMessagesLoading: false,
-    isSoundEnabled: localStorage.getItem('isSoundEnabled') === 'true',
+    isSoundEnabled: JSON.parse(localStorage.getItem('isSoundEnabled') === 'true'),
 
     //toggle sound function
     toggleSound: () => {
-        localStorage.setItem("isSoundEnabled", !get(isSoundEnabled));
-        set({ isSoundEnabled: !get(isSoundEnabled) })
+        localStorage.setItem("isSoundEnabled", !get().isSoundEnabled);
+        set({ isSoundEnabled: !get().isSoundEnabled });
     },
 
     //Selected tabs
@@ -29,30 +29,30 @@ export const useChatStore = create((set, get) => ({
 
         try {
             const res = await axiosInstance.get("/messages/contacts");
-            set({allContacts: res.data});
+            set({ allContacts: res.data });
 
         } catch (error) {
             toast.error(error.response.data.messages);
 
         } finally {
-            set({isUsersLoading: false})
+            set({ isUsersLoading: false })
         }
     },
 
     //get all chat partners
-    getAllChatPartners: async () => { 
+    getAllChatPartners: async () => {
         //initial userlodaing - true
         set({ isUsersLoading: true });
 
         try {
             const res = await axiosInstance.get("/messages/chats");
-            set({chats: res.data})
+            set({ chats: res.data })
 
         } catch (error) {
             toast.error(error.response.data.messages);
 
-        }finally{
-            set({isUsersLoading: false})
+        } finally {
+            set({ isUsersLoading: false })
         }
     },
 }));
