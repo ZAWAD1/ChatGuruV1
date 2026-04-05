@@ -3,7 +3,7 @@ import BorderAnimationContainer from "../components/BorderAnimatedContainer";
 import { useChatStore } from "../store/useChatStore";
 import ProfileHeader from "../components/ProfileHeader";
 import ActiveTabSwitch from "../components/ActiveTabSwitch";
-import ChatList from "../components/ChatList";
+import ChatList from "../components/ChatsList";
 import ContactList from "../components/ContactList";
 import ChatContainer from "../components/ChatContainer";
 import NoConversationPlaceHolder from "../components/NoConversationPlaceHolder";
