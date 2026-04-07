@@ -3,7 +3,8 @@ import UsersLoadingSkeleton from "./UsersLoadingSkeleton";
 import { useChatStore } from "../store/useChatStore";
 
 function ContactList() {
-  const { allContacts, isUsersLoading, getAllContacts } = useChatStore();
+  const { allContacts, isUsersLoading, getAllContacts, setSelectedUser } =
+    useChatStore();
 
   useEffect(() => {
     getAllContacts();
@@ -11,7 +12,7 @@ function ContactList() {
 
   if (isUsersLoading) return <UsersLoadingSkeleton />;
   return (
-  <>
+    <>
       {allContacts.map((contact) => (
         <div
           key={contact._id}
