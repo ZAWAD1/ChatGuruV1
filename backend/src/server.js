@@ -18,7 +18,7 @@ const app = express();
 const __dirname = path.resolve();
 
 // user body parsing. 
-app.use(express.json());
+app.use(express.json({ limit: "5mb" }));
 //cors 
 app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
 //cookie parsing.

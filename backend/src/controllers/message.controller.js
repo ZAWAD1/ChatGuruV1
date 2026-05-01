@@ -30,7 +30,7 @@ export const getMessageByUserId = async (req, res) => {
         })
 
         res.status(200).json(message);
-        
+
     } catch (error) {
         console.log("Error in getting messages: ", error.message);
         res.status(500).json({ message: "Server error" });
@@ -62,7 +62,7 @@ export const sendMessage = async (req, res) => {
 
         //todo: send message in real time if user is online. ( socket.io is will be used )
 
-        res.status(200).json({ message: "Message sent successfully" });
+        res.status(200).json(newMessage);
 
     } catch (error) {
         console.log("Error in sending message: ", error.message);
