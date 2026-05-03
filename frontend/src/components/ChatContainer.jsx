@@ -19,14 +19,15 @@ function ChatContainer() {
   const messageEndRef = useRef(null);
 
   useEffect(() => {
+    if (!selectedUser?._id) return;
+
     getMessagesByUserId(selectedUser._id);
     subscribeToMessage();
 
-    //clean up
     return () => {
       unsubscribeFromMessage();
     };
-  }, [selectedUser, getMessagesByUserId]);
+  }, [selectedUser?._id]);
 
   useEffect(() => {
     if (messageEndRef.current) {
@@ -69,15 +70,13 @@ function ChatContainer() {
                 </div>
               </div>
             ))}
-            <div ref={messageEndRef} />
-
-            {/* 👇 scroll target */}
+            {/* scroll target */}
             <div ref={messageEndRef} />
           </div>
         ) : isMessagesLoading ? (
           <MessagesLoadingSkeleton />
         ) : (
-          <NoChatHistoryPlaceholder name={selectedUser.fullName} />
+          <NoChatHistoryPlaceholder name={selectedUser?.fullName} />
         )}
       </div>
 
